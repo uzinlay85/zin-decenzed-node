@@ -255,7 +255,7 @@ ssh -p 2213 zinko@YOUR_SERVER_IP
 ```bash
 # ၁။ Directory ဆောက်ပြီး Binary ရယူခြင်း
 mkdir -p /opt/decenzed-node && cd /opt/decenzed-node
-wget -O decenzed-node https://github.com/uzinlay85/zin-decenzed-node/releases/latest/download/decenzed-node-linux-amd64
+wget -O decenzed-node https://github.com/icecube092/decenzed-node/releases/latest/download/decenzed-node-linux-amd64
 chmod +x decenzed-node
 
 # ၂။ Setup စတင် run ခြင်း

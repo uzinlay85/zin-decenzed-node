@@ -102,10 +102,10 @@ sudo ufw enable
 mkdir -p /opt/decenzed-node && cd /opt/decenzed-node
 
 # x86_64 (Intel/AMD) VPS အတွက် ဒေါင်းလုဒ်ဆွဲခြင်း
-wget -O decenzed-node https://github.com/uzinlay85/zin-decenzed-node/releases/latest/download/decenzed-node-linux-amd64
+wget -O decenzed-node https://github.com/icecube092/decenzed-node/releases/latest/download/decenzed-node-linux-amd64
 
 # (ARM64 VPS ဖြစ်ပါက အောက်ပါ command ကို သုံးပါ)
-# wget -O decenzed-node https://github.com/uzinlay85/zin-decenzed-node/releases/latest/download/decenzed-node-linux-arm64
+# wget -O decenzed-node https://github.com/icecube092/decenzed-node/releases/latest/download/decenzed-node-linux-arm64
 
 # Execution Permission ပေးပါ
 chmod +x decenzed-node
