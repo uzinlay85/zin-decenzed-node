@@ -257,20 +257,29 @@ go build -o decenzed-node ./cmd/decenzed-node
 
 ## ၇. Node အခြေအနေ စစ်ဆေးခြင်းနှင့် ထိန်းသိမ်းခြင်း (Management Commands)
 
-| Command | လုပ်ဆောင်ချက် ဖော်ပြချက် |
-| :--- | :--- |
-| `./decenzed-node check` | အပြင်မှ Node Port များသို့ ချိတ်ဆက်၍ ရ/မရ၊ IP နှင့် Speed ကို စစ်ဆေးခြင်း |
-| `./decenzed-node stats` | အသုံးပြုနေသော Protocol များ၊ Client တစ်ဦးချင်းအလိုက် အသုံးပြုထားသော Data Traffic (MB/GB) စာရင်းကြည့်ခြင်း |
-| `./decenzed-node logs` | Node နှင့် Xray ၏ နောက်ဆုံး Log များကို ကြည့်ရှုခြင်း |
-| `./decenzed-node logs xray -f` | Xray မှ Realtime log များကို တိုက်ရိုက် ကြည့်ရှုခြင်း (`q` နှိပ်၍ ထွက်နိုင်သည်) |
-| `./decenzed-node debug` | အသေးစိတ် Debug Log စနစ်ကို ဖွင့်/ပိတ် ပြုလုပ်ခြင်း |
-| `./decenzed-node config node` | App Config ဖိုင် အသေးစိတ်ကို ကြည့်ရှုခြင်း |
-| `./decenzed-node config xray` | Xray core ၏ `xray.json` ဖိုင်ကို ကြည့်ရှုခြင်း |
-| `./decenzed-node update` | Version အသစ် ရှိ/မရှိ စစ်ဆေးပြီး အလိုအလျောက် Update လုပ်ခြင်း |
-| `./decenzed-node service status` | Background Service ၏ လက်ရှိ Run နေမှု အခြေအနေကို စစ်ဆေးခြင်း |
-| `./decenzed-node service restart`| Background Service ကို Restart ချခြင်း |
-| `./decenzed-node service uninstall`| Background Service အဖြစ် သတ်မှတ်ထားခြင်းကို ဖြုတ်ချခြင်း |
-| `./decenzed-node setup` | Setting များ (Port, Camouflage, Protocols) ကို ပြန်လည်ပြင်ဆင်သတ်မှတ်ခြင်း |
+> [!TIP]
+> **အလွယ်တကူ Command ခေါ်သုံးနိုင်ရန် (System PATH ထဲသို့ ထည့်သွင်းခြင်း):**
+> သင့် Server ၏ မည်သည့် Folder ထဲမှမဆို `decenzed-node` ဟု ရိုက်နှိပ်ရုံဖြင့် အသုံးပြုနိုင်ရန် အောက်ပါအတိုင်း Symbolic Link တစ်ခါတည်း ချိတ်ထားနိုင်ပါသည်-
+> ```bash
+> sudo ln -sf /opt/decenzed-node/decenzed-node /usr/local/bin/decenzed-node
+> ```
+
+သင့်ဆာဗာ Terminal တွင် လိုအပ်ပါက အောက်ပါ command များကို အသုံးပြုနိုင်ပါသည်-
+
+| လုပ်ဆောင်ချက် | အသုံးပြုရမည့် Command | အသေးစိတ် ရှင်းလင်းချက် |
+| :--- | :--- | :--- |
+| **ဆာဗာ ချိတ်ဆက်မှု စစ်ဆေးခြင်း** | `/opt/decenzed-node/decenzed-node check` | အပြင်မှ Node Port ပေါက်များသို့ ချိတ်ဆက်၍ ရ/မရ၊ IP နှင့် Speed ကို ပြန်လည်စစ်ဆေးခြင်း |
+| **Data Traffic စာရင်းကြည့်ခြင်း** | `/opt/decenzed-node/decenzed-node stats` | အသုံးပြုနေသော Protocol များနှင့် Client တစ်ဦးချင်းအလိုက် အသုံးပြုထားသော Data Traffic (MB/GB) စာရင်းကြည့်ခြင်း |
+| **User အသစ် ထပ်မံဖန်တီးခြင်း** | `/opt/decenzed-node/decenzed-node link add friend1` | သူငယ်ချင်းအတွက် Client အသစ်ဖန်တီးပြီး Share Link ထုတ်ယူခြင်း |
+| **User အဟောင်း ပယ်ဖျက်ခြင်း** | `/opt/decenzed-node/decenzed-node link remove friend1` | အသုံးပြုသူကို ပယ်ဖျက်ပြီး Connection ဖြတ်တောက်ခြင်း |
+| **Realtime Log ကြည့်ရှုခြင်း** | `/opt/decenzed-node/decenzed-node logs xray -f` | Xray core ၏ Realtime traffic logs များကို တိုက်ရိုက် ကြည့်ရှုခြင်း (`q` နှိပ်၍ ထွက်နိုင်သည်) |
+| **Node Log များကို ကြည့်ရှုခြင်း** | `/opt/decenzed-node/decenzed-node logs` | Node နှင့် Xray ၏ နောက်ဆုံး Log များကို ကြည့်ရှုခြင်း |
+| **Debug Mode ဖွင့်/ပိတ်ခြင်း** | `/opt/decenzed-node/decenzed-node debug` | အသေးစိတ် Debug Log စနစ်ကို ဖွင့်/ပိတ် ပြုလုပ်ခြင်း |
+| **Config ဖိုင်များ ကြည့်ရှုခြင်း** | `/opt/decenzed-node/decenzed-node config node` | App Config ဖိုင် အသေးစိတ်ကို ကြည့်ရှုခြင်း (`config xray` ဖြင့် xray.json ကြည့်နိုင်သည်) |
+| **Version အသစ် Update လုပ်ခြင်း**| `/opt/decenzed-node/decenzed-node update` | Version အသစ် ရှိ/မရှိ စစ်ဆေးပြီး အလိုအလျောက် Update လုပ်ခြင်း |
+| **Background Service စစ်ဆေးခြင်း**| `/opt/decenzed-node/decenzed-node service status` | Background Service ၏ လက်ရှိ Run နေမှု အခြေအနေကို စစ်ဆေးခြင်း |
+| **Background Service Restart ချခြင်း**| `/opt/decenzed-node/decenzed-node service restart` | Background Service ကို Restart ပြန်ချခြင်း |
+| **Setting များ ပြန်လည်ပြင်ဆင်ခြင်း**| `/opt/decenzed-node/decenzed-node setup` | Port, Camouflage, Protocols စသည့် Setting များကို ပြန်လည် မွမ်းမံခြင်း |
 
 ---
 

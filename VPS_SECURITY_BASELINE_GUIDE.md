@@ -258,10 +258,21 @@ mkdir -p /opt/decenzed-node && cd /opt/decenzed-node
 wget -O decenzed-node https://github.com/icecube092/decenzed-node/releases/latest/download/decenzed-node-linux-amd64
 chmod +x decenzed-node
 
+# System PATH ထဲသို့ ထည့်သွင်းခြင်း (ဘယ်နေရာကမဆို ခေါ်သုံးနိုင်ရန်)
+sudo ln -sf /opt/decenzed-node/decenzed-node /usr/local/bin/decenzed-node
+
 # ၂။ Setup စတင် run ခြင်း
-./decenzed-node setup
+decenzed-node setup
 
 # ၃။ ချိတ်ဆက်ရန် Link ရယူခြင်း
-./decenzed-node link
+decenzed-node link
 ```
 *(UFW Firewall တွင် Port `8443` နှင့် `32000-38000` များကို Baseline Script က ကြိုတင်ဖွင့်ပေးထားပြီး ဖြစ်သဖြင့် Firewall ပြန်ဖွင့်ရန် မလိုပါ)*
+
+### 🛠️ ဆာဗာ စီမံခန့်ခွဲမှု Commands များ
+- **လည်ပတ်နေမှုနှင့် အပြင်မှ ချိတ်ဆက်နိုင်မှု စစ်ဆေးရန်**: `decenzed-node check`
+- **Data Traffic စာရင်းကြည့်ရန်**: `decenzed-node stats`
+- **User အသစ် ထပ်ဖန်တီးရန်**: `decenzed-node link add friend1`
+- **User ပယ်ဖျက်ရန်**: `decenzed-node link remove friend1`
+- **Realtime Log ကြည့်ရှုရန်**: `decenzed-node logs xray -f`
+- **Background Service Restart ချရန်**: `decenzed-node service restart`
