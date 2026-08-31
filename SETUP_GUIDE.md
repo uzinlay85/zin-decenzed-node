@@ -22,6 +22,7 @@
 6. [Client များထည့်သွင်းခြင်းနှင့် ဖုန်း/ကွန်ပျူတာတွင် ချိတ်ဆက်နည်း](#၆-client-များထည့်သွင်းခြင်းနှင့်-ဖုန်းကွန်ပျူတာတွင်-ချိတ်ဆက်နည်း)
 7. [Node အခြေအနေ စစ်ဆေးခြင်းနှင့် ထိန်းသိမ်းခြင်း (Management Commands)](#၇-node-အခြေအနေ-စစ်ဆေးခြင်းနှင့်-ထိန်းသိမ်းခြင်း-management-commands)
 8. [အဖြစ်များသော ပြဿနာများနှင့် ဖြေရှင်းနည်းများ (Troubleshooting & FAQ)](#၈-အဖြစ်များသော-ပြဿနာများနှင့်-ဖြေရှင်းနည်းများ-troubleshooting--faq)
+9. [စနစ်တစ်ခုလုံးကို လုံးဝ ဖယ်ထုတ် ဖျက်ဆီးနည်း (Complete Uninstallation & Removal)](#၉-စနစ်တစ်ခုလုံးကို-လုံးဝ-ဖယ်ထုတ်-ဖျက်ဆီးနည်း-complete-uninstallation--removal)
 
 ---
 
@@ -298,10 +299,46 @@ go build -o decenzed-node ./cmd/decenzed-node
 
 ### ၃။ OpenWRT တွင် Storage မလောက်ငှခြင်း
 - 32-bit ARM နှင့် MIPS Router များအတွက် Release Binary များသည် UPX ဖိသိပ်ထားသဖြင့် Disk ပေါ်တွင် 10–12 MB သာ ယူပါသည်။
-- Flash သေးငယ်သော Router များတွင် USB Drive တပ်ဆင်ကာ `DECENZED_DATA=/mnt/usb/decenzed-data` ဟု သတ်မှတ်၍ အသုံးပြုပါ။
+## ၉. စနစ်တစ်ခုလုံးကို လုံးဝ ဖယ်ထုတ် ဖျက်ဆီးနည်း (Complete Uninstallation & Removal)
+
+အကယ်၍ သင်သည် `zin-decenzed-node` ကို အသုံးမလိုတော့ဘဲ Server ပေါ်မှ အပြီးအပိုင် ရှင်းလင်းဖယ်ရှားလိုပါက အောက်ပါ အဆင့်အတိုင်း လုပ်ဆောင်နိုင်ပါသည်-
+
+### ၁။ Background Service ကို ရပ်တန့်ပြီး Uninstall လုပ်ပါ
+```bash
+# Service ကို uninstall လုပ်ခြင်း (အလိုအလျောက် service file ဖျက်ပေးပါသည်)
+/opt/decenzed-node/decenzed-node service uninstall
+
+# သို့မဟုတ် systemctl ဖြင့် သေချာစေရန် ရပ်တန့်ခြင်း
+sudo systemctl stop decenzed-node 2>/dev/null || true
+sudo systemctl disable decenzed-node 2>/dev/null || true
+sudo rm -f /etc/systemd/system/decenzed-node.service
+sudo systemctl daemon-reload
+```
+
+### ၂။ Data ဖိုင်များနှင့် Binary ဖိုင်များ အပြီးဖျက်ဆီးခြင်း
+```bash
+# decenzed-node directory နှင့် config/data အားလုံးကို ဖျက်ပါ
+sudo rm -rf /opt/decenzed-node
+
+# System PATH symlink ချိတ်ထားပါက ဖျက်ပါ
+sudo rm -f /usr/local/bin/decenzed-node
+```
+
+### ၃။ UFW Firewall မှ ဖွင့်ထားသော Proxy Port များကို ပြန်လည်ပိတ်ခြင်း
+```bash
+# VLESS Port (8443) ကို ပြန်ပိတ်ခြင်း
+sudo ufw delete allow 8443/tcp
+
+# Trojan / Shadowsocks Port Range (32000-38000) ကို ပြန်ပိတ်ခြင်း
+sudo ufw delete allow 32000:38000/tcp
+
+# Firewall ကို reload ပြုလုပ်ပါ
+sudo ufw reload
+```
 
 ---
 
 ## အချုပ် (Conclusion)
 
 `zin-decenzed-node` သည် Linux VPS ပေါ်တွင် အလွန်ပေါ့ပါးစွာ Run နိုင်ပြီး Xray-core ကို အခြေခံထားသောကြောင့် မြန်မာနိုင်ငံကဲ့သို့ အင်တာနက် ပိတ်ဆို့မှုများပြားသော ပတ်ဝန်းကျင်တွင် REALITY နှင့် Stealth TLS Camouflage နည်းပညာများဖြင့် လွတ်လပ်လုံခြုံစွာ အင်တာနက် အသုံးပြုနိုင်ရန် အထူးသင့်လျော်သော Proxy Server ဖြေရှင်းချက်တစ်ခု ဖြစ်ပါသည်။
+

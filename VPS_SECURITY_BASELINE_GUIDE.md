@@ -276,3 +276,27 @@ decenzed-node link
 - **User ပယ်ဖျက်ရန်**: `decenzed-node link remove friend1`
 - **Realtime Log ကြည့်ရှုရန်**: `decenzed-node logs xray -f`
 - **Background Service Restart ချရန်**: `decenzed-node service restart`
+
+---
+
+## ၆. စနစ်တစ်ခုလုံးကို လုံးဝ ဖယ်ထုတ် ဖျက်ဆီးနည်း (Uninstallation & Cleanup)
+
+အကယ်၍ `zin-decenzed-node` ကို Server ပေါ်မှ အပြီးအပိုင် ရှင်းလင်းလိုပါက:
+
+```bash
+# ၁။ Service ကို ရပ်တန့်ပြီး ဖယ်ရှားပါ
+/opt/decenzed-node/decenzed-node service uninstall
+sudo systemctl stop decenzed-node 2>/dev/null || true
+sudo systemctl disable decenzed-node 2>/dev/null || true
+sudo rm -f /etc/systemd/system/decenzed-node.service
+sudo systemctl daemon-reload
+
+# ၂။ Binary နှင့် Data ဖိုင်အားလုံးကို ဖျက်ဆီးပါ
+sudo rm -rf /opt/decenzed-node
+sudo rm -f /usr/local/bin/decenzed-node
+
+# ၃။ UFW Firewall တွင် Proxy Port များကို ပြန်ပိတ်ပါ
+sudo ufw delete allow 8443/tcp
+sudo ufw delete allow 32000:38000/tcp
+sudo ufw reload
+```
